@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import items from "./data.json";
 
 export function App() {
-    const [oneView, setOneView] = useState(false);
+    const [oneView, setOneView] = useState(true);
     const [secondView, setSecondView] = useState(false);
     const [thirdView, setThirdView] = useState(false);
 
@@ -178,7 +178,7 @@ export function App() {
                   </svg>
                   <div className="card-body">
                     <p className="card-text">
-                      This is a wider card with supporting text below as a
+                      View 2This is a wider card with supporting text below as a
                       natural lead-in to additional content. This content is a
                       little bit longer.
                     </p>
@@ -241,7 +241,8 @@ export function App() {
                           Edit
                         </button>
                       </div>
-                      <small className="text-body-secondary">9 mins</small>
+                      <small className="text-body-secondary">Price = </small>
+                      {console.log(items.items[0].price)}
                     </div>
                   </div>
                 </div>
@@ -312,34 +313,33 @@ export function App() {
     const setViewOne = () => {
       if (oneView === false) {
         setOneView(true);
-      } else {
-        setOneView(false);
+        setSecondView(false);
+        setThirdView(false);
       }
     };
 
     const setViewTwo = () => {
       if (secondView === false) {
+        setOneView(false);
         setSecondView(true);
-      } else {
-        setSecondView(false);
-      }
-    };
-
-    const setViewThree = () => {
-      if (thirdView === false) {
-        setThirdView(true);
-      } else {
         setThirdView(false);
-      }
-    };
+    } 
+};
 
-  return (
-    <div>
+const setViewThree = () => {
+    if (thirdView === false) {
+        setOneView(false);
+        setSecondView(false);
+        setThirdView(true);
+      } 
+    };
+    
+    return (
+        <div>
       <button onClick={setViewOne}>One</button>
       <button onClick={setViewTwo}>Two</button>
       <button onClick={setViewThree}>Three</button>
       {oneView && <View1 />}
-      <View1 />
       {secondView && <View2 />}
       {thirdView && <View3 />}
     </div>
