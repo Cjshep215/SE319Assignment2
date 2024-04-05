@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 export function App() {
+    let allItems;
+    fetch("./data.json").then(response => response.json()).then(allItems => {allItems = allItems});
+
+
   //   const [oneView, setOneView] = useState(false);
   //   const [secondView, setSecondView] = useState(false);
   //   const [thirdView, setThirdView] = useState(false);
+
 
   //bootstrap album
   function View1() {
@@ -151,18 +156,18 @@ export function App() {
     );
   }
   //   //take from in-className (checkout screen)
-  //   function View2() {
-  //     return (
-  //       <div>
-  //         <h1>This is View 2</h1>
-  //         <img
-  //           src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
-  //           width={200}
-  //           alt="view2"
-  //         />
-  //       </div>
-  //     );
-  //   }
+    function View2() {
+      return (
+        <div>
+          <h1>This is View 2</h1>
+          <img
+            src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+            width={200}
+            alt="view2"
+          />
+        </div>
+      );
+    }
   //   //list of purchased items
   //   function View3() {
   //     return (
