@@ -1,0 +1,40 @@
+{
+    "items": [
+        {
+            "name": "Blue Cane Vase",
+            "imageUrl": "../pictures/BlueCaneVase.jpg",
+            "description": "This is a vase made with a base of white covered with swirls of blue cane. It was made by a member of the Gaffer's Guild.",
+            "price" : 20
+        },
+        {
+            "name": "Blue Spiral Vase",
+            "imageUrl": "../pictures/BlueSpiralVase.jpg",
+            "description": "The blue in this vase was twisted creating a spiral. It was made by a member of the Gaffer's Guild.",
+            "price" : 15
+        },
+        {
+            "name": "Cyclone Vase",
+            "imageUrl": "../pictures/CycloneColorVase.jpg",
+            "description": "This is a cyclone themed straight vase blown by a member of the Gaffer's Guild.",
+            "price" : 20
+        },
+        {
+            "name": "Green Speckled Vase",
+            "imageUrl": "../pictures/GreenSpottedVase.jpg",
+            "description": "This is a vase made by overlaying different green frit. It was blown by a member of the Gaffer's Guild.",
+            "price" : 12
+        },
+        {
+            "name": "Red Drop Vase",
+            "imageUrl": "../pictures/RedDropVase.jpg",
+            "description": "This is a red drop vase made by a member of the Gaffer's Guild.",
+            "price" : 25
+        },
+        {
+            "name": "Red Fluted Vase",
+            "imageUrl": "../pictures/RedFluted.jpg",
+            "description": "This fluted red vase blown by a Gaffer's Guild member.",
+            "price" : 15
+        }
+    ]
+}
