@@ -130,6 +130,9 @@ export function App() {
 
       return (
         <div>
+          <div>
+            <button onClick={setViewOne}>Back to Store</button>
+          </div>
           Gaffer's Guild STORE (SE/ComS319 Assignment 2)
           <div className="card">
             <div className="row">
@@ -139,7 +142,7 @@ export function App() {
                   <div className="row">
                     <div className="col">
                       <h4>
-                        <b>Glass Vase Cart</b>
+                        <b>Cart:</b>
                       </h4>
                     </div>
                     <div className="col align-self-center text-right text-muted">
@@ -154,13 +157,13 @@ export function App() {
                   <span className="small text-muted me-2">Order total:</span>
                   <span className="lead fw-normal">${cartTotal}</span>
                 </p>
-                <p className="mb-0 me-5 d-flex align-items-md-end">
-                    <button onClick={setViewOne}>One</button>
-                    <button onClick={setViewThree}>Three</button>
-                </p>
               </div>
             </div>
           </div>
+          <div className="card">
+            <h1>Payment Information</h1>
+          </div>
+          {/* <button onClick={setViewThree}>Checkout</button> */}
         </div>
       );
     }
