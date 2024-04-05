@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export function  Threeviews (){
+export function App (){
 
     const [oneView, setOneView] = useState(false);
     const [secondView, setSecondView] = useState(false);
