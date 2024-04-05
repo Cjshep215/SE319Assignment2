@@ -31,7 +31,7 @@ export function App() {
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div className="col">
                 <div className="card shadow-sm">
-                  <img src="../pictures/BlueCaneVase.jpg"></img>
+                  <img src={require(`${items.items[0].imageUrl}`)}></img>
 
                   <div className="card-body">
                     <p className="card-text">{items.items[0].description}</p>
