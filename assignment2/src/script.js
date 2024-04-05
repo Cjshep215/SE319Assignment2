@@ -2,28 +2,28 @@ import React, { useState, useEffect } from "react";
 import items from "./data.json";
 
 export function App() {
-    const [oneView, setOneView] = useState(true);
-    const [secondView, setSecondView] = useState(false);
-    const [thirdView, setThirdView] = useState(false);
-    const [cart, setCart] = useState([]);
-    const [cartTotal, setCartTotal] = useState(0);
+  const [oneView, setOneView] = useState(true);
+  const [secondView, setSecondView] = useState(false);
+  const [thirdView, setThirdView] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
 
-    const removeFromCart = (el) => {
-        let hardCopy = [...cart];
-        hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
-        setCart(hardCopy);
-    };
+  const removeFromCart = (el) => {
+    let hardCopy = [...cart];
+    hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+    setCart(hardCopy);
+  };
 
-    const addToCart = (el) => {
-        setCart([...cart, el]);
-    };
+  const addToCart = (el) => {
+    setCart([...cart, el]);
+  };
 
-    // <button type="button" onClick={() => removeFromCart(el)}> - </button>{" "}
-    // <button type="button" variant="light" onClick={() => addToCart(el)}> +</button>
-
+  // <button type="button" onClick={() => removeFromCart(el)}> - </button>{" "}
+  // <button type="button" variant="light" onClick={() => addToCart(el)}> +</button>
 
   //bootstrap album
   function View1() {
+
     return (
       <main>
         <div className="album py-5 bg-body-tertiary">
@@ -40,6 +40,7 @@ export function App() {
                         <button
                           type="button"
                           className="btn btn-sm btn-outline-secondary"
+                        //   onClick={() => addToCart(el)}
                         >
                           +
                         </button>
@@ -58,8 +59,8 @@ export function App() {
                 </div>
               </div>
               <div className="col">
-              <div className="card shadow-sm">
-                  <img src="./pictures/BlueCaneVase.jpg"></img>
+                <div className="card shadow-sm">
+                  <img src={require(`${items.items[1].imageUrl}`)}></img>
 
                   <div className="card-body">
                     <p className="card-text">{items.items[1].description}</p>
@@ -86,8 +87,8 @@ export function App() {
                 </div>
               </div>
               <div className="col">
-              <div className="card shadow-sm">
-                  <img src="./pictures/BlueCaneVase.jpg"></img>
+                <div className="card shadow-sm">
+                  <img src={require(`${items.items[2].imageUrl}`)}></img>
 
                   <div className="card-body">
                     <p className="card-text">{items.items[2].description}</p>
@@ -114,19 +115,106 @@ export function App() {
                 </div>
               </div>
             </div>
+            {/* second row starts here */}
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <div className="col">
+                <div className="card shadow-sm">
+                  <img src={require(`${items.items[3].imageUrl}`)}></img>
+
+                  <div className="card-body">
+                    <p className="card-text">{items.items[3].description}</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="btn-group">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          +
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          -
+                        </button>
+                      </div>
+                      <small className="text-body-secondary">
+                        ${items.items[3].price}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col">
+                <div className="card shadow-sm">
+                  <img src={require(`${items.items[4].imageUrl}`)}></img>
+
+                  <div className="card-body">
+                    <p className="card-text">{items.items[4].description}</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="btn-group">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          +
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          -
+                        </button>
+                      </div>
+                      <small className="text-body-secondary">
+                        ${items.items[4].price}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col">
+                <div className="card shadow-sm">
+                  <img src={require(`${items.items[5].imageUrl}`)}></img>
+
+                  <div className="card-body">
+                    <p className="card-text">{items.items[5].description}</p>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div className="btn-group">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          +
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-outline-secondary"
+                        >
+                          -
+                        </button>
+                      </div>
+                      <small className="text-body-secondary">
+                        ${items.items[5].price}
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
     );
   }
-//take from in-className (checkout screen)
-    function View2() {
-      const cartItems = cart.map((el) => (
-        <div key={el.id}>
-          <img class="img-fluid" src={el.image} width={150} />
-          {el.title}${el.price}
-        </div>
-      ));
+  //take from in-className (checkout screen)
+  function View2() {
+    const cartItems = cart.map((el) => (
+      <div key={el.id}>
+        <img class="img-fluid" src={el.image} width={150} />
+        {el.title}${el.price}
+      </div>
+    ));
 
       return (
         <div>
