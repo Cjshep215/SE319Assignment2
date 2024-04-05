@@ -177,13 +177,13 @@ export function App() {
   //     );
   //   }
 
-  //   const setViewOne = () => {
-  //     if (oneView === false) {
-  //       setOneView(true);
-  //     } else {
-  //       setOneView(false);
-  //     }
-  //   };
+    // const setViewOne = () => {
+    //   if (oneView === false) {
+    //     setOneView(true);
+    //   } else {
+    //     setOneView(false);
+    //   }
+    // };
 
   //   const setViewTwo = () => {
   //     if (secondView === false) {
