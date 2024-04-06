@@ -223,21 +223,37 @@ export function App() {
     };
 
     return (
+        <div className="container"><h1>Payment summary</h1>
+        <h3>Order for: {dataF.fullName}</h3>
       <table class="table">
-        <h1>Payment summary:</h1>
-        <h3>{dataF.fullName}</h3>
-        <p>{dataF.email}</p>
-        <p>{dataF.creditCard}</p>
-        <p>{dataF.address}</p>
-        {/* <p>{dataF.address2}</p> */}
-        <p>
+        <tr>
+        <th scope="col">Email: </th>
+        <th scope="col">{dataF.email}</th>
+        </tr>
+        <tr>
+        <th scope="col">CreditCard: </th>
+        <th scope="col">{dataF.creditCard}</th>
+        </tr>
+        <tr>
+        <th scope="col">Address: </th>
+        <th scope="col">{dataF.address}</th>
+        </tr>
+        <tr>
+        <th scope="col"></th>
+        <th scope="col"><p>
           {dataF.city},{dataF.state} {dataF.zip}
-        </p>
-
-        <button onClick={updateHooks} className="btn btn-secondary">
+        </p></th>
+        </tr>
+        <tr>
+        <th scope="col">Address 2: </th>
+        {/* address 2 is likely not stored correctly */}
+        <th scope="col">{dataF.address2}</th>           
+        </tr>
+        <button onClick={updateHooks} className="btn btn-primary">
           Submit
         </button>
       </table>
+        </div>
     );
   }
 
