@@ -26,7 +26,6 @@ export function App() {
     formState: { errors },
   } = useForm();
   const [dataF, setDataF] = useState({});
-  const [viewer, setViewer] = useState(0);
 
   // <button type="button" onClick={() => removeFromCart(el)}> - </button>{" "}
   // <button type="button" variant="light" onClick={() => addToCart(el)}> +</button>
@@ -219,8 +218,8 @@ export function App() {
   //   //list of purchased items
   function View3() {
     const updateHooks = () => {
-      setViewer(0);
-      setDataF({});
+        setViewOne();
+        setDataF({});
     };
 
     return (
