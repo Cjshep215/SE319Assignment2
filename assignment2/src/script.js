@@ -8,10 +8,9 @@ export function App() {
   const [thirdView, setThirdView] = useState(false);
   const [cart, setCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const [itemList, setitemList] = useState(items.items);
-
 
   const removeFromCart = (el) => {
     let hardCopy = [...cart];
@@ -52,7 +51,6 @@ export function App() {
     return hmot.length;
   }
   function View1(itemList) {
-
     const listItems = itemList.map((el) => (
       <div className="col" key={el.id}>
         <div className="card shadow-sm">
@@ -91,19 +89,25 @@ export function App() {
       setQuery(e.target.value);
       const results = items.items.filter((eachItem) => {
         if (e.target.value === "") {
-            return itemList;
+          return itemList;
         }
-        return eachItem.name.toLowerCase().includes(e.target.value.toLowerCase());
+        return eachItem.name
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
       });
       View1(results);
     };
-        
 
     return (
       <>
         <div className="album py-5 bg-body-tertiary">
           <nav className="nav">
-          <input className="flex-grow-1" type="search" value={query} onChange={handleChange} />
+            <input
+              className="flex-grow-1"
+              type="search"
+              value={query}
+              onChange={handleChange}
+            />
             <button onClick={setViewTwo}>To Cart</button>
           </nav>
           <div className="container">
@@ -147,7 +151,9 @@ export function App() {
     return (
       <div className="container">
         <div>
-          <button onClick={setViewOne} className="btn btn-secondary">Back to Store</button>
+          <button onClick={setViewOne} className="btn btn-secondary">
+            Back to Store
+          </button>
         </div>
         Gaffer's Guild STORE (SE/ComS319 Assignment 2)
         <div className="card">
@@ -257,42 +263,45 @@ export function App() {
   //   //list of purchased items
   function View3() {
     const updateHooks = () => {
-        setViewOne();
-        setDataF({});
+      setViewOne();
+      setDataF({});
     };
 
     return (
-        <div className="container"><h1>Payment summary</h1>
+      <div className="container">
+        <h1>Payment summary</h1>
         <h3>Order for: {dataF.fullName}</h3>
-      <table class="table">
-        <tr>
-        <th scope="col">Email: </th>
-        <th scope="col">{dataF.email}</th>
-        </tr>
-        <tr>
-        <th scope="col">CreditCard: </th>
-        <th scope="col">{dataF.creditCard}</th>
-        </tr>
-        <tr>
-        <th scope="col">Address: </th>
-        <th scope="col">{dataF.address}</th>
-        </tr>
-        <tr>
-        <th scope="col"></th>
-        <th scope="col"><p>
-          {dataF.city},{dataF.state} {dataF.zip}
-        </p></th>
-        </tr>
-        <tr>
-        <th scope="col">Address 2: </th>
-        {/* address 2 is likely not stored correctly */}
-        <th scope="col">{dataF.address2}</th>           
-        </tr>
-        <button onClick={updateHooks} className="btn btn-primary">
-          Submit
-        </button>
-      </table>
-        </div>
+        <table class="table">
+          <tr>
+            <th scope="col">Email: </th>
+            <th scope="col">{dataF.email}</th>
+          </tr>
+          <tr>
+            <th scope="col">CreditCard: </th>
+            <th scope="col">{dataF.creditCard}</th>
+          </tr>
+          <tr>
+            <th scope="col">Address: </th>
+            <th scope="col">{dataF.address}</th>
+          </tr>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">
+              <p>
+                {dataF.city},{dataF.state} {dataF.zip}
+              </p>
+            </th>
+          </tr>
+          <tr>
+            <th scope="col">Address 2: </th>
+            {/* address 2 is likely not stored correctly */}
+            <th scope="col">{dataF.address2}</th>
+          </tr>
+          <button onClick={updateHooks} className="btn btn-primary">
+            Submit
+          </button>
+        </table>
+      </div>
     );
   }
 
