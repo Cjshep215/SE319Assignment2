@@ -42,7 +42,6 @@ export function App() {
     formState: { errors },
   } = useForm();
   const [dataF, setDataF] = useState({});
-  const [viewer, setViewer] = useState(0);
 
   // <button type="button" onClick={() => removeFromCart(el)}> - </button>{" "}
   // <button type="button" variant="light" onClick={() => addToCart(el)}> +</button>
@@ -146,9 +145,9 @@ export function App() {
     };
 
     return (
-      <div>
+      <div className="container">
         <div>
-          <button onClick={setViewOne}>Back to Store</button>
+          <button onClick={setViewOne} className="btn btn-secondary">Back to Store</button>
         </div>
         Gaffer's Guild STORE (SE/ComS319 Assignment 2)
         <div className="card">
@@ -215,14 +214,18 @@ export function App() {
                   placeholder="Address"
                   className="form-control"
                 />
-                {errors.address && <p>Address is required.</p>}
+                {errors.state && (
+                  <p className="text-danger">Address is required.</p>
+                )}
                 <input {...register("address2")} placeholder="Address 2" />
                 <input
                   {...register("city", { required: true })}
                   placeholder="City"
                   // className="form-control"
                 />
-                {errors.city && <p>City is required.</p>}
+                {errors.state && (
+                  <p className="text-danger">City is required.</p>
+                )}
                 <input
                   {...register("state", { required: true })}
                   placeholder="State"
@@ -235,8 +238,11 @@ export function App() {
                   {...register("zip", { required: true })}
                   placeholder="Zip"
                   className="form-control"
+                  pattern="\b\d{5}\b"
                 />
-                {errors.zip && <p>Zip is required.</p>}
+                {errors.state && (
+                  <p className="text-danger">Zip is required.</p>
+                )}
                 <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
@@ -251,26 +257,42 @@ export function App() {
   //   //list of purchased items
   function View3() {
     const updateHooks = () => {
-      setViewer(0);
-      setDataF({});
+        setViewOne();
+        setDataF({});
     };
 
     return (
-      <div>
-        <h1>Payment summary:</h1>
-        <h3>{dataF.fullName}</h3>
-        <p>{dataF.email}</p>
-        <p>{dataF.creditCard}</p>
-        <p>{dataF.address}</p>
-        {/* <p>{dataF.address2}</p> */}
-        <p>
+        <div className="container"><h1>Payment summary</h1>
+        <h3>Order for: {dataF.fullName}</h3>
+      <table class="table">
+        <tr>
+        <th scope="col">Email: </th>
+        <th scope="col">{dataF.email}</th>
+        </tr>
+        <tr>
+        <th scope="col">CreditCard: </th>
+        <th scope="col">{dataF.creditCard}</th>
+        </tr>
+        <tr>
+        <th scope="col">Address: </th>
+        <th scope="col">{dataF.address}</th>
+        </tr>
+        <tr>
+        <th scope="col"></th>
+        <th scope="col"><p>
           {dataF.city},{dataF.state} {dataF.zip}
-        </p>
-
-        <button onClick={updateHooks} className="btn btn-secondary">
+        </p></th>
+        </tr>
+        <tr>
+        <th scope="col">Address 2: </th>
+        {/* address 2 is likely not stored correctly */}
+        <th scope="col">{dataF.address2}</th>           
+        </tr>
+        <button onClick={updateHooks} className="btn btn-primary">
           Submit
         </button>
-      </div>
+      </table>
+        </div>
     );
   }
 
