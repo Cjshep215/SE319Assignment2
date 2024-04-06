@@ -108,7 +108,7 @@ export function App() {
     return (
       <div className="container">
         <div>
-          <button onClick={setViewOne}>Back to Store</button>
+          <button onClick={setViewOne} className="btn btn-secondary">Back to Store</button>
         </div>
         Gaffer's Guild STORE (SE/ComS319 Assignment 2)
         <div className="card">
