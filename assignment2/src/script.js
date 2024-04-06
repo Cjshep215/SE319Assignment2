@@ -8,6 +8,10 @@ export function App() {
   const [thirdView, setThirdView] = useState(false);
   const [cart, setCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
+  const [query, setQuery] = useState('');
+
+  const [itemList, setitemList] = useState(items.items);
+
 
   const removeFromCart = (el) => {
     let hardCopy = [...cart];
@@ -17,6 +21,18 @@ export function App() {
 
   const addToCart = (el) => {
     setCart([...cart, el]);
+  };
+
+  useEffect(() => {
+    total();
+  }, [cart]);
+
+  const total = () => {
+    let totalVal = 0;
+    for (let i = 0; i < cart.length; i++) {
+      totalVal += cart[i].price;
+    }
+    setCartTotal(totalVal);
   };
 
   //   const function and payment are copied from assignment 12, delete as needed
@@ -32,80 +48,102 @@ export function App() {
   // <button type="button" variant="light" onClick={() => addToCart(el)}> +</button>
 
   //bootstrap album
-  function View1() {
-    function howManyofThis(id) {
-        let hmot = cart.filter((cartItem) => cartItem.id === id);
-        return hmot.length;
-    }
+  function howManyofThis(id) {
+    let hmot = cart.filter((cartItem) => cartItem.id === id);
+    return hmot.length;
+  }
+  function View1(itemList) {
 
-    const listItems = items.items.map((el) => (
-        <div className="col" key={el.id}>
-          <div className="card shadow-sm">
-            <img className="img-fluid" src={require(`${el.imageUrl}`)}></img>
+    const listItems = itemList.map((el) => (
+      <div className="col" key={el.id}>
+        <div className="card shadow-sm">
+          <img className="img-fluid" src={require(`${el.imageUrl}`)}></img>
 
-            <div className="card-body">
-              <p className="card-text">{el.description}</p>
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="btn-group">
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() => addToCart(el)}
-                  >
-                    +
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() => removeFromCart(el)}
-                  >
-                    -
-                  </button>
-                </div>
-                <small className="text-body-secondary">
-                  ${el.price} <span className="close">&#10005;</span>{howManyofThis(el.id)}
-                </small>
+          <div className="card-body">
+            <p className="card-text">{el.description}</p>
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="btn-group">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() => addToCart(el)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() => removeFromCart(el)}
+                >
+                  -
+                </button>
               </div>
+              <small className="text-body-secondary">
+                ${el.price} <span className="close">&#10005;</span>
+                {howManyofThis(el.id)}
+              </small>
             </div>
           </div>
         </div>
-
+      </div>
     ));
 
+    const handleChange = (e) => {
+      setQuery(e.target.value);
+      const results = items.items.filter((eachItem) => {
+        if (e.target.value === "") {
+            return itemList;
+        }
+        return eachItem.name.toLowerCase().includes(e.target.value.toLowerCase());
+      });
+      View1(results);
+    };
+        
+
     return (
-        <>
-      <div className="album py-5 bg-body-tertiary">
-        <nav className="nav">
-            <search className="">Test</search>
+      <>
+        <div className="album py-5 bg-body-tertiary">
+          <nav className="nav">
+          <input className="flex-grow-1" type="search" value={query} onChange={handleChange} />
             <button onClick={setViewTwo}>To Cart</button>
-        </nav>
-        <div className="container">
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {listItems}
+          </nav>
+          <div className="container">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              {listItems}
+            </div>
           </div>
         </div>
-      </div>
       </>
     );
   }
 
-
   //take from in-className (checkout screen)
   function View2() {
-    const cartItems = cart.map((el) => (
-      <div key={el.id}>
-        <img class="img-fluid" src={el.image} width={150} />
-        {el.title}${el.price}
-      </div>
-    ));
+    const cartItems = items.items.map(function (el) {
+      if (howManyofThis(el.id) > 0) {
+        return (
+          <div className="container" key={el.id}>
+            <img
+              className="img-fluid"
+              src={require(`${el.imageUrl}`)}
+              width={75}
+            />
+            {el.name}
+            <span> - </span>${el.price}
+            <span className="close">&#10005;</span>
+            {howManyofThis(el.id)}
+          </div>
+        );
+      }
+    });
 
     const onSubmit = (data) => {
-        console.log(data); // log all data
-        console.log(data.fullName); // log only fullname
-        // update hooks
-        setDataF(data);
-        setViewThree();
-      };
+      console.log(data); // log all data
+      console.log(data.fullName); // log only fullname
+      // update hooks
+      setDataF(data);
+      setViewThree();
+    };
 
     return (
       <div>
@@ -129,7 +167,7 @@ export function App() {
                   </div>
                 </div>
               </div>
-              {/* <div>{listItems}</div> */}
+              <div>{cartItems}</div>
             </div>
             <div className="float-end">
               <p className="mb-0 me-5 d-flex align-items-center">
@@ -212,8 +250,6 @@ export function App() {
   }
   //   //list of purchased items
   function View3() {
-    
-
     const updateHooks = () => {
       setViewer(0);
       setDataF({});
