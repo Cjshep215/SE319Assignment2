@@ -34,61 +34,60 @@ export function App() {
   //bootstrap album
   function View1() {
     function howManyofThis(id) {
-        let hmot = cart.filter((cartItem) => cartItem.id === id);
-        return hmot.length;
+      let hmot = cart.filter((cartItem) => cartItem.id === id);
+      return hmot.length;
     }
 
     const listItems = items.items.map((el) => (
-        <div className="col" key={el.id}>
-          <div className="card shadow-sm">
-            <img className="img-fluid" src={require(`${el.imageUrl}`)}></img>
+      <div className="col" key={el.id}>
+        <div className="card shadow-sm">
+          <img className="img-fluid" src={require(`${el.imageUrl}`)}></img>
 
-            <div className="card-body">
-              <p className="card-text">{el.description}</p>
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="btn-group">
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() => addToCart(el)}
-                  >
-                    +
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-secondary"
-                    onClick={() => removeFromCart(el)}
-                  >
-                    -
-                  </button>
-                </div>
-                <small className="text-body-secondary">
-                  ${el.price} <span className="close">&#10005;</span>{howManyofThis(el.id)}
-                </small>
+          <div className="card-body">
+            <p className="card-text">{el.description}</p>
+            <div className="d-flex justify-content-between align-items-center">
+              <div className="btn-group">
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() => addToCart(el)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() => removeFromCart(el)}
+                >
+                  -
+                </button>
               </div>
+              <small className="text-body-secondary">
+                ${el.price} <span className="close">&#10005;</span>
+                {howManyofThis(el.id)}
+              </small>
             </div>
           </div>
         </div>
-
+      </div>
     ));
 
     return (
-        <>
-      <div className="album py-5 bg-body-tertiary">
-        <nav className="nav">
+      <>
+        <div className="album py-5 bg-body-tertiary">
+          <nav className="nav">
             <search className="">Test</search>
             <button onClick={setViewTwo}>To Cart</button>
-        </nav>
-        <div className="container">
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {listItems}
+          </nav>
+          <div className="container">
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              {listItems}
+            </div>
           </div>
         </div>
-      </div>
       </>
     );
   }
-
 
   //take from in-className (checkout screen)
   function View2() {
@@ -100,12 +99,12 @@ export function App() {
     ));
 
     const onSubmit = (data) => {
-        console.log(data); // log all data
-        console.log(data.fullName); // log only fullname
-        // update hooks
-        setDataF(data);
-        setViewThree();
-      };
+      console.log(data); // log all data
+      console.log(data.fullName); // log only fullname
+      // update hooks
+      setDataF(data);
+      setViewThree();
+    };
 
     return (
       <div>
@@ -177,14 +176,18 @@ export function App() {
                   placeholder="Address"
                   className="form-control"
                 />
-                {errors.address && <p>Address is required.</p>}
+                {errors.state && (
+                  <p className="text-danger">Address is required.</p>
+                )}
                 <input {...register("address2")} placeholder="Address 2" />
                 <input
                   {...register("city", { required: true })}
                   placeholder="City"
                   // className="form-control"
                 />
-                {errors.city && <p>City is required.</p>}
+                {errors.state && (
+                  <p className="text-danger">City is required.</p>
+                )}
                 <input
                   {...register("state", { required: true })}
                   placeholder="State"
@@ -197,8 +200,11 @@ export function App() {
                   {...register("zip", { required: true })}
                   placeholder="Zip"
                   className="form-control"
+                  pattern="\b\d{5}\b"
                 />
-                {errors.zip && <p>Zip is required.</p>}
+                {errors.state && (
+                  <p className="text-danger">Zip is required.</p>
+                )}
                 <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
@@ -212,15 +218,13 @@ export function App() {
   }
   //   //list of purchased items
   function View3() {
-    
-
     const updateHooks = () => {
       setViewer(0);
       setDataF({});
     };
 
     return (
-      <div>
+      <table class="table">
         <h1>Payment summary:</h1>
         <h3>{dataF.fullName}</h3>
         <p>{dataF.email}</p>
@@ -234,7 +238,7 @@ export function App() {
         <button onClick={updateHooks} className="btn btn-secondary">
           Submit
         </button>
-      </div>
+      </table>
     );
   }
 
