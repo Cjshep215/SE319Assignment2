@@ -23,190 +23,63 @@ export function App() {
 
   //bootstrap album
   function View1() {
+    function howManyofThis(id) {
+        let hmot = cart.filter((cartItem) => cartItem.id === id);
+        return hmot.length;
+    }
 
-    return (
-      <main>
-        <div className="album py-5 bg-body-tertiary">
-          <div className="container">
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div className="col">
-                <div className="card shadow-sm">
-                  <img src={require(`${items.items[0].imageUrl}`)}></img>
+    const listItems = items.items.map((el) => (
+        <div className="col" key={el.id}>
+          <div className="card shadow-sm">
+            <img className="img-fluid" src={require(`${el.imageUrl}`)}></img>
 
-                  <div className="card-body">
-                    <p className="card-text">{items.items[0].description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        //   onClick={() => addToCart(el)}
-                        >
-                          +
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          -
-                        </button>
-                      </div>
-                      <small className="text-body-secondary">
-                        ${items.items[0].price}
-                      </small>
-                    </div>
-                  </div>
+            <div className="card-body">
+              <p className="card-text">{el.description}</p>
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="btn-group">
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-outline-secondary"
+                    onClick={() => addToCart(el)}
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-outline-secondary"
+                    onClick={() => removeFromCart(el)}
+                  >
+                    -
+                  </button>
                 </div>
-              </div>
-              <div className="col">
-                <div className="card shadow-sm">
-                  <img src={require(`${items.items[1].imageUrl}`)}></img>
-
-                  <div className="card-body">
-                    <p className="card-text">{items.items[1].description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          +
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          -
-                        </button>
-                      </div>
-                      <small className="text-body-secondary">
-                        ${items.items[1].price}
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow-sm">
-                  <img src={require(`${items.items[2].imageUrl}`)}></img>
-
-                  <div className="card-body">
-                    <p className="card-text">{items.items[2].description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          +
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          -
-                        </button>
-                      </div>
-                      <small className="text-body-secondary">
-                        ${items.items[2].price}
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* second row starts here */}
-            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              <div className="col">
-                <div className="card shadow-sm">
-                  <img src={require(`${items.items[3].imageUrl}`)}></img>
-
-                  <div className="card-body">
-                    <p className="card-text">{items.items[3].description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          +
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          -
-                        </button>
-                      </div>
-                      <small className="text-body-secondary">
-                        ${items.items[3].price}
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow-sm">
-                  <img src={require(`${items.items[4].imageUrl}`)}></img>
-
-                  <div className="card-body">
-                    <p className="card-text">{items.items[4].description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          +
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          -
-                        </button>
-                      </div>
-                      <small className="text-body-secondary">
-                        ${items.items[4].price}
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col">
-                <div className="card shadow-sm">
-                  <img src={require(`${items.items[5].imageUrl}`)}></img>
-
-                  <div className="card-body">
-                    <p className="card-text">{items.items[5].description}</p>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="btn-group">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          +
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-secondary"
-                        >
-                          -
-                        </button>
-                      </div>
-                      <small className="text-body-secondary">
-                        ${items.items[5].price}
-                      </small>
-                    </div>
-                  </div>
-                </div>
+                <small className="text-body-secondary">
+                  ${el.price} <span className="close">&#10005;</span>{howManyofThis(el.id)}
+                </small>
               </div>
             </div>
           </div>
         </div>
-      </main>
+
+    ));
+
+    return (
+        <>
+      <div className="album py-5 bg-body-tertiary">
+        <nav className="nav">
+            <search className="">Test</search>
+            <button onClick={setViewTwo}>To Cart</button>
+        </nav>
+        <div className="container">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {listItems}
+          </div>
+        </div>
+      </div>
+      </>
     );
   }
+
+
   //take from in-className (checkout screen)
   function View2() {
     const cartItems = cart.map((el) => (
@@ -295,9 +168,9 @@ export function App() {
 
   return (
     <div>
-      <button onClick={setViewOne}>One</button>
+      {/* <button onClick={setViewOne}>One</button>
       <button onClick={setViewTwo}>Two</button>
-      <button onClick={setViewThree}>Three</button>
+      <button onClick={setViewThree}>Three</button> */}
       {oneView && <View1 />}
       {secondView && <View2 />}
       {thirdView && <View3 />}
