@@ -230,7 +230,7 @@ export function App() {
         console.log(data.fullName); // log only fullname
         // update hooks
         setDataF(data);
-        setViewer(1);
+        setViewThree();
       };
 
     return (
