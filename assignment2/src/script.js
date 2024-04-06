@@ -106,7 +106,7 @@ export function App() {
     };
 
     return (
-      <div>
+      <div className="container">
         <div>
           <button onClick={setViewOne}>Back to Store</button>
         </div>
