@@ -111,6 +111,7 @@ export function App() {
           <nav className="navbar bg-primary" style={{paddingLeft:20, paddingRight:20}}>
             <input
               type="search"
+              placeholder="Search..."
               value={query}
               onInput={handleChange}
             />
