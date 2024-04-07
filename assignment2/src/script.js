@@ -34,7 +34,6 @@ export function App() {
     setCartTotal(totalVal);
   };
 
-  //   const function and payment are copied from assignment 12, delete as needed
   const {
     register,
     handleSubmit,
@@ -42,10 +41,7 @@ export function App() {
   } = useForm();
   const [dataF, setDataF] = useState({});
 
-  // <button type="button" onClick={() => removeFromCart(el)}> - </button>{" "}
-  // <button type="button" variant="light" onClick={() => addToCart(el)}> +</button>
 
-  //bootstrap album
   function howManyofThis(id) {
     let hmot = cart.filter((cartItem) => cartItem.id === id);
     return hmot.length;
@@ -58,6 +54,8 @@ export function App() {
           <img className="img-fluid" src={require(`${el.imageUrl}`)}></img>
 
           <div className="card-body">
+            <h5>{el.name}</h5>
+            <hr className="border-3"></hr>
             <p className="card-text">{el.description}</p>
             <div className="d-flex justify-content-between align-items-center">
               <div className="btn-group">
@@ -102,20 +100,19 @@ export function App() {
     
     const setView2Clean = () => {
         setQuery("");
-        handleChange(createElement(<input value={""} />));
+        setitemList(items.items);
         setViewTwo();
     }
+    
 
     return (
-      <>
-        <div className="album py-5 bg-body-tertiary">
-          <nav className="nav">
+      
+        <div className="album">
+          <nav className="navbar bg-primary" style={{paddingLeft:20, paddingRight:20}}>
             <input
-            //   className="flex-grow-1"
               type="search"
               value={query}
-              onChange={handleChange}
-              onLoad={handleChange}
+              onInput={handleChange}
             />
             <div className="flex-grow-1"></div>
             <button onClick={setView2Clean}>To Cart</button>
@@ -126,11 +123,10 @@ export function App() {
             </div>
           </div>
         </div>
-      </>
+      
     );
   }
 
-  //take from in-className (checkout screen)
   const cartItems = items.items.map(function (el) {
     if (howManyofThis(el.id) > 0) {
       return (
@@ -152,9 +148,6 @@ export function App() {
   function View2() {
 
     const onSubmit = (data) => {
-    //   console.log(data); // log all data
-    //   console.log(data.fullName); // log only fullname
-      // update hooks
       setDataF(data);
       setViewThree();
     };
@@ -195,10 +188,11 @@ export function App() {
         </div>
         <div className="card">
           <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="container mt-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="container mt-5" id="infoForm">
               <div className="form-group">
                 <div className="form-group">
                   <input
+
                     {...register("fullName", { required: true })}
                     placeholder="Full Name"
                     className="form-control"
@@ -267,18 +261,17 @@ export function App() {
             </form>
           </div>
         </div>
-        {/* <button onClick={setViewThree}>Checkout</button> */}
       </div>
     );
   }
-  //   //list of purchased items
   function View3() {
     const updateHooks = () => {
-      setViewOne();
-      setCart([]);
-      setCartTotal(0);
-      setQuery("");
-      setDataF({});
+        setitemList(items.items);
+        setCart([]);
+        setCartTotal(0);
+        setQuery("");
+        setDataF({});
+        setViewOne();
     };
 
     return (
@@ -345,9 +338,6 @@ export function App() {
 
   return (
     <div>
-      {/* <button onClick={setViewOne}>One</button>
-      <button onClick={setViewTwo}>Two</button>
-      <button onClick={setViewThree}>Three</button> */}
       {oneView && <View1 />}
       {secondView && <View2 />}
       {thirdView && <View3 />}
