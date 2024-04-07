@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createElement } from "react";
 import items from "./data.json";
 import { useForm } from "react-hook-form";
 
@@ -50,7 +50,8 @@ export function App() {
     let hmot = cart.filter((cartItem) => cartItem.id === id);
     return hmot.length;
   }
-  function View1(itemList) {
+
+  function View1() {
     const listItems = itemList.map((el) => (
       <div className="col" key={el.id}>
         <div className="card shadow-sm">
@@ -95,20 +96,29 @@ export function App() {
           .toLowerCase()
           .includes(e.target.value.toLowerCase());
       });
-      View1(results);
+      setitemList(results);
     };
+
+    
+    const setView2Clean = () => {
+        setQuery("");
+        handleChange(createElement(<input value={""} />));
+        setViewTwo();
+    }
 
     return (
       <>
         <div className="album py-5 bg-body-tertiary">
           <nav className="nav">
             <input
-              className="flex-grow-1"
+            //   className="flex-grow-1"
               type="search"
               value={query}
               onChange={handleChange}
+              onLoad={handleChange}
             />
-            <button onClick={setViewTwo}>To Cart</button>
+            <div className="flex-grow-1"></div>
+            <button onClick={setView2Clean}>To Cart</button>
           </nav>
           <div className="container">
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -121,28 +131,29 @@ export function App() {
   }
 
   //take from in-className (checkout screen)
+  const cartItems = items.items.map(function (el) {
+    if (howManyofThis(el.id) > 0) {
+      return (
+        <div className="container" key={el.id}>
+          <img
+            className="img-fluid"
+            src={require(`${el.imageUrl}`)}
+            width={75}
+          />
+          <span> </span>
+          {el.name}
+          <span> - </span>${el.price}
+          <span className="close">&#10005;</span>
+          {howManyofThis(el.id)}
+        </div>
+      );
+    }
+  });
   function View2() {
-    const cartItems = items.items.map(function (el) {
-      if (howManyofThis(el.id) > 0) {
-        return (
-          <div className="container" key={el.id}>
-            <img
-              className="img-fluid"
-              src={require(`${el.imageUrl}`)}
-              width={75}
-            />
-            {el.name}
-            <span> - </span>${el.price}
-            <span className="close">&#10005;</span>
-            {howManyofThis(el.id)}
-          </div>
-        );
-      }
-    });
 
     const onSubmit = (data) => {
-      console.log(data); // log all data
-      console.log(data.fullName); // log only fullname
+    //   console.log(data); // log all data
+    //   console.log(data.fullName); // log only fullname
       // update hooks
       setDataF(data);
       setViewThree();
@@ -152,7 +163,7 @@ export function App() {
       <div className="container">
         <div>
           <button onClick={setViewOne} className="btn btn-secondary">
-            Back to Store
+            &#x21DA; Back to Store
           </button>
         </div>
         Gaffer's Guild STORE (SE/ComS319 Assignment 2)
@@ -223,11 +234,11 @@ export function App() {
                 {errors.state && (
                   <p className="text-danger">Address is required.</p>
                 )}
-                <input {...register("address2")} placeholder="Address 2" />
+                <input {...register("address2")} placeholder="Address 2" className="form-control"/>
                 <input
                   {...register("city", { required: true })}
                   placeholder="City"
-                  // className="form-control"
+                  className="form-control"
                 />
                 {errors.state && (
                   <p className="text-danger">City is required.</p>
@@ -250,7 +261,7 @@ export function App() {
                   <p className="text-danger">Zip is required.</p>
                 )}
                 <button type="submit" className="btn btn-primary">
-                  Submit
+                  Order
                 </button>
               </div>
             </form>
@@ -264,6 +275,9 @@ export function App() {
   function View3() {
     const updateHooks = () => {
       setViewOne();
+      setCart([]);
+      setCartTotal(0);
+      setQuery("");
       setDataF({});
     };
 
@@ -271,36 +285,36 @@ export function App() {
       <div className="container">
         <h1>Payment summary</h1>
         <h3>Order for: {dataF.fullName}</h3>
-        <table class="table">
-          <tr>
-            <th scope="col">Email: </th>
-            <th scope="col">{dataF.email}</th>
-          </tr>
-          <tr>
-            <th scope="col">CreditCard: </th>
-            <th scope="col">{dataF.creditCard}</th>
-          </tr>
-          <tr>
-            <th scope="col">Address: </th>
-            <th scope="col">{dataF.address}</th>
-          </tr>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">
-              <p>
-                {dataF.city},{dataF.state} {dataF.zip}
-              </p>
-            </th>
-          </tr>
-          <tr>
-            <th scope="col">Address 2: </th>
-            {/* address 2 is likely not stored correctly */}
-            <th scope="col">{dataF.address2}</th>
-          </tr>
-          <button onClick={updateHooks} className="btn btn-primary">
-            Submit
-          </button>
+        <div>{cartItems}</div>
+        <h5 className="float-end">Total: ${cartTotal}</h5>
+        <h4 style={{textDecorationLine: 'underline'}}>Payment Info: </h4>
+        <table className="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="col">Email</th>
+              <td>{dataF.email}</td>
+            </tr>
+            <tr>
+              <th scope="col">CreditCard: </th>
+              <td>{dataF.creditCard}</td>
+            </tr>
+            <tr>
+              <th scope="col">Address: </th>
+              <td>
+                {dataF.address} {dataF.address2}
+              </td>
+            </tr>
+            <tr>
+              <th scope="col"></th>
+              <td>
+                {dataF.city}, {dataF.state} {dataF.zip}
+              </td>
+            </tr>
+          </tbody>
         </table>
+          <button onClick={updateHooks} className="btn btn-primary">
+            Return
+          </button>
       </div>
     );
   }
